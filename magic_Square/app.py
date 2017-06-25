@@ -1,6 +1,8 @@
 # This program (supposedly) solves a 3-by-3 magic square
 import sys
 import time
+import value_Global
+from print_Output import print_Output
 
 # Define main() function
 def main():
@@ -8,29 +10,30 @@ def main():
     # Try defining arguments
     # If there is no argument, prompt the user that s/he can input one, and continue
     actions = sys.argv[1:]
-    # Initiate necessary values
+    # Globalize necessary values
     global verbose
-    global output
+    # Initiate necessary values
     verbose = False
-    output = False
-    help_File = False
-    if actions == []:
-        print('You can specify arguments on this little program!')
-        print('Use \'python', sys.argv[0], '-h\' to see more!\n')
+    no_Help = True
+    valid_Argument = True
     # If there are arguments, proceed with arguments
+    if ('-v' in actions) or ('--verbose' in actions):
+        verbose = True
+    elif ('-o' in actions) or ('--output' in actions):
+        value_Global.output = True
+    elif ('-h' in actions) or ('--help' in actions):
+        no_Help = False
+        print_Output('This program (supposedly) solves a 3-by-3 magic square\n\n-h OR --help\tShow this help section\n-v OR --verbose\tShow more output to see how the program runs\n-o OR --output\tPrint all console outputs to a file named \'Magic_Square_v2.log.txt\'\n\t\t(Note that all of the data in that file, if exist, will be cleared)\n')
     else:
-        if ('-v' in actions) or ('--verbose' in actions):
-            verbose = True
-        if ('-o' in actions) or ('--output' in actions):
-            output = True
-            global output_File
-            output_File = open('Magic_Square_v2.log.txt', 'w')
-        if ('-h' in actions) or ('--help' in actions):
-            help_File = True
-            print_Output('This program (supposedly) solves a 3-by-3 magic square\n\n-h --help\tShow this help section\n-v --verbose\tShow more output to see how the program runs\n-o --output\tPrint all console outputs to a file named \'Magic_Square_v2.log.txt\'\n\t\t(Note that all of the data in that file, if exist, will be cleared)\n')
+        if actions == []:
+            print('You can specify arguments on this little program!')
+        else:
+            print('Arguments invalid!')
+            valid_Argument = False
+        print('Use \'python', sys.argv[0], '-h\' to see more!\n')
     if verbose:
         print_Output('Calculation is initiating...\n\n')
-    if not help_File:
+    if no_Help and valid_Argument:
         calculation()
 
 # Define calculation() function
@@ -122,8 +125,8 @@ def get_number(numbers):
         x = 'Input your integer ' + str(i) + ' (Leave blank for ' + str(i) + '): '
         print(x, end = '')
         user_Input = input('')
-        if output:
-            output_File.write(x + user_Input + '\n')
+        if value_Global.output:
+            value_Global.output_File.write(x + user_Input + '\n')
         # See if user has input
         # If not, use the defalut and ask for the next input
         if user_Input == '':
@@ -300,11 +303,6 @@ def show_Square(success):
     for x in success:
         print_Output(str(x))
     print_Output('\nThe sum of each line is ' + str(target) + '\n')
-
-def print_Output(x):
-    print(x)
-    if output:
-        output_File.write(x + '\n')
 
 # Execute the main function
 main()

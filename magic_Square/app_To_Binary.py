@@ -1,14 +1,15 @@
 # This program (supposedly) solves a 3-by-3 magic square
 import time
+from value_Global import output as output
+from print_Output import print_Output
 
 # Define main() function
 def main():
     print('\nThis program (supposedly) solves a 3-by-3 magic square\n\nverbose\t\tShow more output to see how the program runs\noutput\t\tPrint all console outputs to a file named \'Magic_Square_v2.log.txt\'\n\t\t(Note that all of the data in that file, if exist, will be cleared)\n')
-    # Initiate necessary values
+    # Globalize necessary values
     global verbose
-    global output
+    # Initiate necessary values
     verbose = False
-    output = False
     help_File = False
     # Prompt user for arguments
     verbose_Input = input('Do you want verbose? (\'y\' for yes and everything else for no): ')
@@ -17,9 +18,7 @@ def main():
     if verbose_Input in ['y', 'Y', '\'y\'', '\'Y\'', 'yes', 'Yes']:
         verbose = True
     if output_Input in ['y', 'Y', '\'y\'', '\'Y\'', 'yes', 'Yes']:
-        output = True
-        global output_File
-        output_File = open('Magic_Square_v2.log.txt', 'w')
+        value_Global.output = True
     if verbose:
         print_Output('Calculation is initiating...\n\n')
     calculation()
@@ -113,8 +112,8 @@ def get_number(numbers):
         x = 'Input your integer ' + str(i) + ' (Leave blank for ' + str(i) + '): '
         print(x, end = '')
         user_Input = input('')
-        if output:
-            output_File.write(x + user_Input + '\n')
+        if value_Global.output:
+            value_Global.output_File.write(x + user_Input + '\n')
         # See if user has input
         # If not, use the defalut and ask for the next input
         if user_Input == '':
@@ -291,11 +290,6 @@ def show_Square(success):
     for x in success:
         print_Output(str(x))
     print_Output('\nThe sum of each line is ' + str(target) + '\n')
-
-def print_Output(x):
-    print(x)
-    if output:
-        output_File.write(x + '\n')
 
 # Execute the main function
 main()
