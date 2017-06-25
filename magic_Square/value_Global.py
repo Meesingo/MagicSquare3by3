@@ -1,3 +1,4 @@
 # Globalize and initiate necessary arguments
+verbose = False
 output = False
-output_File = open('Magic_Square_v2.log.txt', 'w')
+output_File = ''
