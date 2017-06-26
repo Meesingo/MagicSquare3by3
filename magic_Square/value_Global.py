@@ -2,3 +2,4 @@
 verbose = False
 output = False
 output_File = ''
+allsol = False

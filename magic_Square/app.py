@@ -19,7 +19,7 @@ if actions == []:
 else:
     if ('-h' in actions) or ('--help' in actions):
         no_Help = False
-        print_Output('This program (supposedly) solves a 3-by-3 magic square\n\n-h OR --help\tShow this help section\n-v OR --verbose\tShow more output to see how the program runs\n-o OR --output\tPrint all console outputs to a file named \'Magic_Square_v2.log.txt\'\n\t\t(Note that all of the data in that file, if exist, will be cleared)\n')
+        print_Output('This program (supposedly) solves a 3-by-3 magic square\n\n-h OR --help\tShow this help section\n-v OR --verbose\tShow more output to see how the program runs\n-o OR --output\tPrint all console outputs to a file named \'Magic_Square_v2.log.txt\'\n\t\t(Note that all of the data in that file, if exist, will be cleared)\n-a OR --allsol\tPrint all solutions, with duplicates\n')
     else:
         if ('-v' in actions) or ('--verbose' in actions):
             value_Global.verbose = True
@@ -28,6 +28,8 @@ else:
             value_Global.output = True
             value_Global.output_File = open('Magic_Square_v2.log.txt', 'w')
             actions = [x for x in actions if x not in ['-o', '--output']]
+        if ('-a' in actions) or ('--allsol' in actions):
+            value_Global.allsol = True
         if actions != []:
             print('Arguments invalid!')
             valid_Argument = False
