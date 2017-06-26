@@ -19,7 +19,7 @@ def check_Center():
     # Check if the center is one-third of the target sum
     # If not so, prompt the user and set flag not to continue
     # Else, continue
-    if not 3 * center == target:
+    if not 3 * value_Calc.center == value_Calc.target:
         print_Output('These numbers cannot make a 3-by-3 magic square!')
         verbose_Print('ERROR: No proper center!')
         return False

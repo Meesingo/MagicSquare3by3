@@ -32,13 +32,13 @@ def calculation():
     # Only continue if the average and the center are legit
     verbose_Print('Checking the legitimacy of the target sum and central number\n\n')
     if for_Vali.check_Average(numbers_Average) and for_Vali.check_Center():
-        assemble_Success = for_Calc.calc(numbers)
+        success = for_Calc.calc(numbers)
     else:
         verbose_Print('\nCheck failed, terminating calculation\n')
     verbose_Print('\nCalculation ending, recording end time\n')
     end = time.time()
     # If calculation successful, print the answer using show_Square(success)
-    if assemble_Success:
+    if success != False:
         for_Result.show_Square(success)
-    for_Result.show_Time()
+    for_Result.show_Time(start, end)
     input('\n\nPress enter key to exit...')
