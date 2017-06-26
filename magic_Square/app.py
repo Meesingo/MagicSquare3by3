@@ -30,6 +30,7 @@ else:
             actions = [x for x in actions if x not in ['-o', '--output']]
         if ('-a' in actions) or ('--allsol' in actions):
             value_Global.allsol = True
+            actions = [x for x in actions if x not in ['-a', '--allsol']]
         if actions != []:
             print('Arguments invalid!')
             valid_Argument = False

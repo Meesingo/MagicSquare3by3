@@ -1,3 +1,4 @@
+import value_Global
 import value_Calc
 from verbose_Print import verbose_Print
 
@@ -37,7 +38,10 @@ def assemble_Line1(numbers):
     # Initiate necessary values
     row1 = []
     # Choice of first number is the first half of the set of numbers
-    numbers1 = numbers[:4]
+    if value_Global.allsol:
+        numbers1 = numbers[:]
+    else:
+        numbers1 = numbers[:4]
     verbose_Print('The number pool of the first number is ' + str(numbers1))
     # Iterate through the choices for the first number
     for choice1 in numbers1:
@@ -104,7 +108,8 @@ def assemble_Line3(success_Line1):
 # Define assemble(success_Line3) function
 def assemble(success_Line3):
     # Initiate necessary values
-    row2 = []
+    if value_Global.allsol:
+        row2 = []
     # Iterate through the successful third lines
     for line3 in success_Line3:
         verbose_Print('Selecting first line ' + str(line3[0]) + ' with third line ' + str(line3[1]))
@@ -119,10 +124,14 @@ def assemble(success_Line3):
                 if (sum_Line2 - choice1 + line3[0][2] + line3[1][2] == value_Calc.target):
                     answer = [line3[0], [choice1, value_Calc.center, sum_Line2 - choice1], line3[1]]
                     verbose_Print('Found the answer: ' + str(answer) + '\n')
-                    return answer
+                    if value_Global.allsol:
+                        row2.append(answer)
+                    else:
+                        return answer
                 else:
                     verbose_Print('The third column does not sum up to the target sum\nChecking next combination\n')
             else:
                 verbose_Print(str(choice1) + ' is not in the number pool!\nChecking next combination\n')
         else:
             verbose_Print('The second line does not sum up to the target sum\nChecking next combination\n')
+    return row2
